@@ -17,7 +17,16 @@ app.get('/listUsers', function (req, res) {
 });
 
 app.put('/editUser', function (req, res) {
-  res.end('http put')
+  var user = req.body;
+  for (var i = 0; i < users.length; i++) {
+    if(users[i].id == user.id){
+      users[i] = user;     
+      break;
+    }
+  }
+
+  res.end(JSON.stringify(users));
+  
 });
 
 app.post('/addUser', function (req, res) {
@@ -25,8 +34,8 @@ app.post('/addUser', function (req, res) {
   res.end(JSON.stringify(users));
 });
 
-app.delete('/deleteUser/:id', function (req, res) {  
-  users.splice(req.params.id,1);
+app.delete('/deleteUser/:index', function (req, res) {
+  users.splice(req.params.index, 1);
   res.end(JSON.stringify(users));
 })
 
